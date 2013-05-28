@@ -1,0 +1,17 @@
+
+actindo ShopConnector für xt:Commerce
+
+
+1. INSTALLATION
+----------------
+Die Installationsanleitung für den ShopConnector finden Sie unter:
+
+https://www.actindo.biz/wiki/index.php?title=Handbuch:ShopConnector_Installation
+
+
+2. UPDATE
+----------
+Die jeweils aktuellste Version des ShopConnectors finden Sie unter:
+
+https://www.actindo.biz/wiki/index.php?title=Handbuch:ShopConnector_Download
+
