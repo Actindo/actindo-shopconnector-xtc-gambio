@@ -13,7 +13,7 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 
-define( 'ACTINDO_SHOPCONN_REVISION', '$Revision: 520 $' );
+define( 'ACTINDO_SHOPCONN_REVISION', '$Revision: 521 $' );
 define( 'ACTINDO_PROTOCOL_REVISION', '2.'.substr( ACTINDO_SHOPCONN_REVISION, 11, -2 ) );
 
 
