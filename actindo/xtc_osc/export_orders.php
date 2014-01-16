@@ -254,11 +254,30 @@ function _export_payment( $orders_id, $payment_method, &$actindoorder )
       $res = act_db_query( "SELECT * FROM `banktransfer` WHERE `orders_id`=".(int)$orders_id );
       $payment = mysql_fetch_assoc($res);
       mysql_free_result( $res );
-      $actindoorder['customer']['kto'] = $payment['banktransfer_number'];
-      $actindoorder['customer']['blz'] = $payment['banktransfer_blz'];
-      $actindoorder['customer']['bankname'] = $payment['banktransfer_bankname'];
-      $actindoorder['customer']['kto_inhaber'] = $payment['banktransfer_owner'];
-      $actindoorder['_payment'] = $payment;
+        /**
+         * if sepa payment then $payment will contain false informations as these are stored in the sepa database table from now on.
+         * for backward compatibility the origin code is left, if information is stored inside of the banktransfer table!
+         */
+        if(!empty($payment)){
+          $actindoorder['customer']['kto'] = $payment['banktransfer_number'];
+          $actindoorder['customer']['blz'] = $payment['banktransfer_blz'];
+          $actindoorder['customer']['bankname'] = $payment['banktransfer_bankname'];
+          $actindoorder['customer']['kto_inhaber'] = $payment['banktransfer_owner'];
+          $actindoorder['_payment'] = $payment;
+      }else{
+          /**
+           * Added Query for SEPA Table Query
+           */
+          $sql = 'SELECT * FROM sepa WHERE orders_id='.(int)$orders_id.';';
+          $result = act_db_query($sql);
+          $payment = mysql_fetch_assoc($result);
+          mysql_free_result($result);
+          $actindoorder['customer']['iban'] = $payment['sepa_iban'];
+          $actindoorder['customer']['swift'] = $payment['sepa_bic'];
+          $actindoorder['customer']['bankname'] = $payment['sepa_bankname'];
+          $actindoorder['customer']['kto_inhaber'] = $payment['sepa_owner'];
+          $actindoorder['_payment'] = $payment;
+      }
       return TRUE;
   }
 
